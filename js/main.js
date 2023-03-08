@@ -18,12 +18,12 @@ function init() {
         // clusterIconContentLayout:
     })
 
-    for (const coords in JSON.parse(storage.geoObjects || '{}')) {
+    const storageGeoObjects = JSON.parse(storage.geoObjects || '{}');
+
+    for (const coords in storageGeoObjects) {
         let reviewItems = '';
-        console.log(coords)
-        console.log(storage.geoObjects[coords])
-        console.log(storage.geoObjects)
-        for (const review of storage.geoObjects[coords]) {
+
+        for (const review of storageGeoObjects[coords]) {
             reviewItems += [
                 '<li class="balloon__reviews-item">',
                 `<span class="item__name">${review.name}</span>`,
@@ -32,7 +32,7 @@ function init() {
                 '</li>'].join('')
         }
 
-        geoObjects.push(new ymaps.Placemark(coords, {
+        geoObjects.push(new ymaps.Placemark(coords.split(','), {
             balloonContent: [
                 '<div class="balloon">',
                 '<ul class="balloon__reviews-list">',
