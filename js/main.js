@@ -1,27 +1,30 @@
-geoObjects = [];
 const storage = localStorage;
 
 function init() {
     const map = new ymaps.Map('map', {
-        center: [59.94, 30.32],
-        zoom: 12,
-        controls: ['zoomControl'],
-        behaviors: ['scrollZoom'],
-        noPlacemark: true
-    });
-
-    const clusterer = new ymaps.Clusterer({
-        groupByCoordinates: true,
-        clusterDisableClickZoom: true,
-        hideIconOnBalloonOpen: false,
-
-        // clusterIconContentLayout:
-    })
+            center: [59.94, 30.32],
+            zoom: 12,
+            controls: ['zoomControl'],
+            behaviors: ['scrollZoom']
+        }),
+        objectManager = new ymaps.ObjectManager({
+            clusterize: true,
+            clusterDisableClickZoom: true
+        }),
+        clusterer = new ymaps.Clusterer({
+            groupByCoordinates: true,
+            clusterDisableClickZoom: true,
+            hideIconOnBalloonOpen: false,
+            clusterBalloonContentLayoutWidth: 350,
+            clusterBalloonContentLayoutHeight: 450
+        }),
+        geoObjects = [];
 
     const storageGeoObjects = JSON.parse(storage.geoObjects || '{}');
 
     for (const coords in storageGeoObjects) {
         let reviewItems = '';
+        let countPlacemarks = 0;
 
         for (const review of storageGeoObjects[coords]) {
             reviewItems += [
@@ -30,6 +33,7 @@ function init() {
                 `<span class="item__information">${review.place}</span>`,
                 `<p class="item__review">${review.review}</p>`,
                 '</li>'].join('')
+            countPlacemarks++;
         }
 
         geoObjects.push(new ymaps.Placemark(coords.split(','), {
@@ -48,6 +52,9 @@ function init() {
                 '</div>'
             ].join(''),
         }, {balloonMinHeight: 450}));
+        for (let i = 0; i < countPlacemarks - 1; i++) {
+            geoObjects.push(new ymaps.Placemark(coords.split(',')));
+        }
 
         clusterer.add(geoObjects);
     }
@@ -82,22 +89,30 @@ function init() {
 
             let geoObjectStorage = JSON.parse(storage.geoObjects || '{}')
 
-            if (geoObjectStorage[geoObjects[geoObjects.length - 1].geometry._coordinates]) {
-                geoObjectStorage[geoObjects[geoObjects.length - 1].geometry._coordinates].push({
-                    name: inputNodes[0].value,
-                    place: inputNodes[1].value,
-                    review: inputNodes[2].value
+            const name = inputNodes[0].value;
+            const place = inputNodes[0].value;
+            const review = inputNodes[0].value;
+
+            const coords = geoObjects[geoObjects.length - 1].geometry._coordinates
+
+            if (geoObjectStorage[coords]) {
+                geoObjectStorage[coords].push({
+                    name: name,
+                    place: place,
+                    review: review
                 })
             } else {
-                geoObjectStorage[geoObjects[geoObjects.length - 1].geometry._coordinates] = [{
-                    name: inputNodes[0].value,
-                    place: inputNodes[1].value,
-                    review: inputNodes[2].value
+                geoObjectStorage[coords] = [{
+                    name: name,
+                    place: place,
+                    review: review
                 }]
             }
 
             storage.geoObjects = JSON.stringify(geoObjectStorage);
-            console.log(storage.geoObjects);
+
+            addReview(name, place, review, coords);
+
 
             for (const inputNode of inputNodes) {
                 inputNode.value = '';
@@ -105,44 +120,45 @@ function init() {
         }
     })
 
-        map.events.add('click', (e) => {
-            const coords = e.get('coords');
+    map.events.add('click', (e) => {
+        const coords = e.get('coords');
 
-            geoObjects.push(new ymaps.Placemark(coords, {
-                balloonContent: [
-                    '<div class="balloon">',
-                    '<ul class="balloon__reviews-list">',
-                    '<li class="balloon__reviews-item">',
-                    '<span class="item__name">Антон</span>',
-                    '<span class="item__information">Кафе 09.06.2023</span>',
-                    '<p class="item__review">Можно классно посидеть и отдохнуть!</p>',
-                    '</li>',
-                    '<li class="balloon__reviews-item">',
-                    '<span class="item__name">Василий</span>',
-                    '<span class="item__information">Магнит 12.08.2023</span>',
-                    '<p class="item__review">Колбаса - огонь!</p>',
-                    '</li>',
-                    '<li class="balloon__reviews-item">',
-                    '<span class="item__name">Василий</span>',
-                    '<span class="item__information">Магнит 12.08.2023</span>',
-                    '<p class="item__review">Колбаса - огонь!</p>',
-                    '</li>',
-                    '</ul>',
-                    '<h3 class="balloon__title">Отзыв:</h3>',
-                    '<form class="balloon__form" action="#">',
-                    '<input class="input__info" type="text" placeholder="Укажите ваше имя">',
-                    '<input class="input__info" type="text" placeholder="Укажите место">',
-                    '<textarea  class="input__info input__review" name="review" cols="30" rows="10" placeholder="Оставить отзыв"></textarea>',
-                    '<button class="balloon__form-button" type="submit">Добавить</button>',
-                    '</form>',
-                    '</div>'
-                ].join(''),
-            }, {balloonMinHeight: 450}));
+        geoObjects.push(new ymaps.Placemark(coords, {
+            balloonContent: [
+                '<div class="balloon">',
+                '<ul class="balloon__reviews-list">',
+                '</ul>',
+                '<h3 class="balloon__title">Отзыв:</h3>',
+                '<form class="balloon__form" action="#">',
+                '<input class="input__info" type="text" placeholder="Укажите ваше имя">',
+                '<input class="input__info" type="text" placeholder="Укажите место">',
+                '<textarea  class="input__info input__review" name="review" cols="30" rows="10" placeholder="Оставить отзыв"></textarea>',
+                '<button class="balloon__form-button" type="submit">Добавить</button>',
+                '</form>',
+                '</div>'
+            ].join(''),
+        }, {balloonMinHeight: 450}));
 
-            clusterer.add(geoObjects);
-        });
+        clusterer.add(geoObjects);
+    });
 
-        map.geoObjects.add(clusterer);
-    }
+    map.geoObjects.add(clusterer);
+}
 
-    ymaps.ready(init);
+function addReview(name, place, review, coords) {
+    const reviewsListNode = document.querySelector('.balloon__reviews-list');
+
+    const newLiNode = document.createElement('li');
+    newLiNode.classList.add("balloon__reviews-item");
+    newLiNode.innerHTML = [
+        `<span class="item__name">${name}</span>`,
+        `<span class="item__information">${place}</span>`,
+        `<p class="item__review">${review}</p>`].join('')
+
+    reviewsListNode.appendChild(newLiNode);
+
+    geoObjects.push(new ymaps.Placemark(coords));
+    clusterer.add(geoObjects)
+}
+
+ymaps.ready(init);
