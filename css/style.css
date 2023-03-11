@@ -19,7 +19,7 @@ body,
     font-size: 16px;
     line-height: 18px;
     max-width: 350px;
-    max-height: 500px;
+    max-height: 450px;
     padding-left: 5px;
 }
 
@@ -89,10 +89,10 @@ body,
     background-color: #FFDB4D;
 }
 
-.ymaps-2-1-79-b-cluster-tabs .ymaps-2-1-79-b-cluster-tabs__section_type_nav {
+#map .ymaps-2-1-79-b-cluster-tabs__section_type_nav {
     display: none;
 }
 
-.ymaps-2-1-79-b-cluster-tabs .ymaps-2-1-79-b-cluster-tabs__section_type_content {
+#map .ymaps-2-1-79-b-cluster-tabs__section_type_content {
     padding-left: 0;
 }
