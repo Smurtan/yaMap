@@ -88,3 +88,11 @@ body,
     padding: 10px 16px;
     background-color: #FFDB4D;
 }
+
+.ymaps-2-1-79-b-cluster-tabs .ymaps-2-1-79-b-cluster-tabs__section_type_nav {
+    display: none;
+}
+
+.ymaps-2-1-79-b-cluster-tabs .ymaps-2-1-79-b-cluster-tabs__section_type_content {
+    padding-left: 0;
+}
