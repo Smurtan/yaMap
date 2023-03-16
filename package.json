@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
+  },
+  "scripts": {
+    "build": "webpack --progress --colors",
+    "watch": "webpack-dev-server --progress --colors --open",
+    "start": "yarn watch"
+  }
+}
