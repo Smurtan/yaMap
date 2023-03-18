@@ -6,7 +6,7 @@ module.exports = function () {
             use: "babel-loader"
         },
         {
-            text: /\.css$/,
+            test: /\.css$/,
             use: ['style-loader', 'css-loader']
         },
         {
