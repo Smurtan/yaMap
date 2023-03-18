@@ -1,5 +1,5 @@
 let path = require('path');
-//let myRules = require('./webpack.config.rules.js');
+let myRules = require('./webpack.config.rules.js')();
 let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let HtmlPlugin = require('html-webpack-plugin');
 //let {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -20,29 +20,7 @@ module.exports = {
     },
     devtool: 'source-map',
     module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: "babel-loader"
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.hbs/,
-                use: "handlebars-loader"
-            },
-            {
-                test: /\.(jpe?g|png|gif|svg|)$/i,
-                use: 'file-loader?name=images/[hash].[ext]'
-            },
-            {
-                test: /\.(eot|svg|ttf|woff|woff2)$/,
-                use: 'file-loader?name=fonts/[hash].[ext]'
-            }
-        ]
+        rules: myRules
     },
     optimization: {
         minimizer: [
