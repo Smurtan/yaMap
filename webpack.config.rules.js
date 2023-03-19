@@ -10,7 +10,7 @@ module.exports = function () {
             use: ['style-loader', 'css-loader']
         },
         {
-            test: /\.hbs/,
+            test: /\.hbs$/,
             use: "handlebars-loader"
         },
         {

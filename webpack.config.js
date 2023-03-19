@@ -1,7 +1,7 @@
 let path = require('path');
 let myRules = require('./webpack.config.rules.js')();
 let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-let HtmlPlugin = require('html-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 //let {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
@@ -37,7 +37,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlPlugin({
+        new HtmlWebpackPlugin({
             title: "Review Map",
             template: path.resolve("./index.hbs")
         })
