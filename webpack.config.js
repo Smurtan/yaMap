@@ -2,7 +2,6 @@ let path = require('path');
 let myRules = require('./webpack.config.rules.js')();
 let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-//let {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
