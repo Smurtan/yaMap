@@ -1,10 +1,11 @@
 import InteractiveMap from "./interactiveMap";
-
-
+import balloonTemplate from "../templates/balloon.hbs";
+import reviewTemplate from "../templates/reviewItem.hbs";
 
 export default class GeoReview {
     constructor() {
-        this.balloonTemplate = document.querySelector('#addBalloonTemplate').innerHTML;
+        this.balloonTemplate = balloonTemplate();
+        this.reviewTemplate = reviewTemplate;
         this.map = new InteractiveMap('map', this.onClick.bind(this));
         this.map.init().then(this.onInit.bind(this));
     }
@@ -23,7 +24,7 @@ export default class GeoReview {
 
     async callApi(method, body = {})  {
         const res = await fetch(`/geo-review/${method}`, {
-            method: post,
+            method: 'POST',
             body: JSON.stringify(body)
         });
         return await res.json();
@@ -32,11 +33,17 @@ export default class GeoReview {
     createBalloon(coords, reviews) {
         const rootNode = document.createElement('div');
         rootNode.innerHTML = this.balloonTemplate;
+        const reviewListNode = document.querySelector('.balloon__reviews-list');
         const reviewFormNode = rootNode.querySelector('[data-role=review-form]');
         reviewFormNode.dataset.coords = JSON.stringify(coords);
 
         for (const item of reviews) {
-            const div = document.createElement('div')
+            const liReviewNode = this.reviewTemplate({
+                name: item.name,
+                place: item.place,
+                text: item.text
+            });
+            reviewListNode.appendChild(liReviewNode);
         }
 
         return rootNode

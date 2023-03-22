@@ -5,7 +5,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: path.resolve('./src/index.js')
+        main: path.resolve('./src/client/index.js')
     },
     output: {
         filename: "[name].[hash].js",
