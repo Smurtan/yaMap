@@ -1,11 +1,19 @@
-let path = require('path');
-let myRules = require('./webpack.config.rules.js')();
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const myRules = require('./webpack.config.rules.js')();
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+///////////////////////////////////////////////////////////////
+const settingPath = path.resolve('./src', 'settings.json');
+const proxy = {};
+
+const settings = require(settingPath);
+Object.assign(proxy, settings.proxy);
+///////////////////////////////////////////////////////////////////
 
 module.exports = {
     entry: {
-        main: path.resolve('./src/client/index.js')
+        main: path.resolve('./src/index.js')
     },
     output: {
         filename: "[name].[hash].js",
@@ -13,9 +21,10 @@ module.exports = {
         clean: true
     },
     devServer: {
-        watchFiles: path.resolve(__dirname, 'src'),
+        proxy,
+        watchFiles: path.resolve(__dirname, './src'),
         compress: true,
-        port: 9000
+        port: 8080
     },
     devtool: 'source-map',
     module: {

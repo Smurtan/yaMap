@@ -1,0 +1,22 @@
+{
+  "proxy": {
+    "/review-map/list": {
+      "target": "http://localhost:8181",
+      "pathRewrite": {
+        "^/review-map": ""
+      }
+    },
+    "/review-map/add": {
+      "target": "http://localhost:8181",
+      "pathRewrite": {
+        "^/review-map": ""
+      }
+    },
+    "/review-map/coords": {
+      "target": "http://localhost:8181",
+      "pathRewrite": {
+        "^/review-map": ""
+      }
+    }
+  }
+}

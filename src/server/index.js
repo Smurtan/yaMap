@@ -25,6 +25,8 @@ function createServer() {
         .createServer(async (req, res) => {
             res.setHeader('content-type', 'application/json');
 
+            console.log('>', req.method, req.url);
+
             if (req.method !== 'POST') {
                 end(res, {});
                 return;
