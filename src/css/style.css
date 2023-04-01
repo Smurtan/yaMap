@@ -6,7 +6,7 @@
 
 html,
 body,
-.map {
+#map {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -20,34 +20,33 @@ body,
     line-height: 18px;
     max-width: 350px;
     max-height: 450px;
-    padding-left: 5px;
 }
 
-.balloon__reviews-list {
-    border-bottom: 1px solid #E7E7E7;
-    color: #8F8F8F;
-    list-style: none;
-    padding-left: 0;
-    max-height: 115px;
-    overflow-y: scroll;
-}
+/*.balloon__reviews-list {*/
+/*    border-bottom: 1px solid #E7E7E7;*/
+/*    color: #8F8F8F;*/
+/*    list-style: none;*/
+/*    padding-left: 0;*/
+/*    max-height: 115px;*/
+/*    overflow-y: scroll;*/
+/*}*/
 
-#map .balloon__reviews-list::-webkit-scrollbar {
-    width: 12px;
-}
+/*#map .balloon__reviews-list::-webkit-scrollbar {*/
+/*    width: 12px;*/
+/*}*/
 
-.balloon__reviews-item {
-    margin-bottom: 20px;
-}
+/*.balloon__reviews-item {*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
-.item__name {
-    color: #000;
-    padding-right: 10px;
-}
+/*.item__name {*/
+/*    color: #000;*/
+/*    padding-right: 10px;*/
+/*}*/
 
-.item__review {
-    margin: 0;
-}
+/*.item__review {*/
+/*    margin: 0;*/
+/*}*/
 
 .balloon__title {
     font-weight: 700;
@@ -55,7 +54,6 @@ body,
 }
 
 .balloon__form {
-    font-weight: 400;
     font-size: 14px;
     line-height: 16px;
 }
@@ -89,10 +87,10 @@ body,
     background-color: #FFDB4D;
 }
 
-#map .ymaps-2-1-79-b-cluster-tabs__section_type_nav {
-    display: none;
-}
+/*#map .ymaps-2-1-79-b-cluster-tabs__section_type_nav {*/
+/*    display: none;*/
+/*}*/
 
-#map .ymaps-2-1-79-b-cluster-tabs__section_type_content {
-    padding-left: 0;
-}
+/*#map .ymaps-2-1-79-b-cluster-tabs__section_type_content {*/
+/*    padding-left: 0;*/
+/*}*/

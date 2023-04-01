@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.2"
+  },
+  "scripts": {
+    "build": "SET NODE_ENV='production' && webpack --progress --color",
+    "watch": "webpack-dev-server --progress --color --open",
+    "start": "yarn watch"
+  },
+  "dependencies": {
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "handlebars": "^4.7.7",
+    "handlebars-loader": "^1.7.3",
+    "path-browserify": "^1.0.1",
+    "stream-http": "^3.2.0",
+    "style-loader": "^3.3.2"
+  }
+}
