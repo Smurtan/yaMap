@@ -3,13 +3,11 @@ const myRules = require('./webpack.config.rules.js')();
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-///////////////////////////////////////////////////////////////
 const settingPath = path.resolve('./src', 'settings.json');
 const proxy = {};
 
 const settings = require(settingPath);
 Object.assign(proxy, settings.proxy);
-///////////////////////////////////////////////////////////////////
 
 module.exports = {
     entry: {

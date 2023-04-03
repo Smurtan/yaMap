@@ -45,7 +45,6 @@ export default class GeoReview {
                 place: item.place,
                 text: item.text
             });
-            console.log(domParser.parseFromString(liReviewNode, 'text/html'));
             reviewListNode.appendChild(domParser.parseFromString(liReviewNode, 'text/html').body);
         }
 
@@ -61,14 +60,35 @@ export default class GeoReview {
 
     async onDocumentClick(e) {
         if (e.target.dataset.role === 'review-add') {
+            e.preventDefault();
+
+            let emptyFieldFlag = false;
+
             const reviewFormNode = document.querySelector('[data-role=review-form]');
             const coords = JSON.parse(reviewFormNode.dataset.coords);
+            const fieldNodes = {
+                name: document.querySelector('[data-role=review-name]'),
+                place: document.querySelector('[data-role=review-place]'),
+                review: document.querySelector('[data-role=review-text]')
+            };
+
+            for (const field in fieldNodes) {
+                if (!fieldNodes[field].value) {
+                    fieldNodes[field].classList.add('empty__field');
+                    emptyFieldFlag = true;
+                } else {
+                    fieldNodes[field].classList.remove('empty__field');
+                }
+            }
+
+            if (emptyFieldFlag) return;
+
             const data = {
                 coords,
                 review: {
-                    name: document.querySelector('[data-role=review-name]').value,
-                    place: document.querySelector('[data-role=review-place]').value,
-                    text: document.querySelector('[data-role=review-text]').value
+                    name: fieldNodes.name.value,
+                    place: fieldNodes.place.value,
+                    text: fieldNodes.review.value
                 }
             };
 

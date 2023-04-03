@@ -34,7 +34,6 @@ function createServer() {
 
             try {
                 const body = await readBody(req);
-
                 if (req.url === '/coords') {
                     end(res, storage.getCoords());
                 } else if (req.url === '/add') {
