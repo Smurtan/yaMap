@@ -34,14 +34,13 @@ function createServer() {
 
             try {
                 const body = await readBody(req);
-
-                if (req.url === '/coords') {
-                    end(res, storage.getCoords());
+                if (req.url === '/list') {
+                    end(res, storage.getByCoords(body.coords));
                 } else if (req.url === '/add') {
                     storage.add(body);
                     end(res, {ok: true});
-                } else if (req.url === '/list') {
-                    end(res, storage.getByCoords(body.coords));
+                } else if (req.url === '/coords') {
+                    end(res, storage.getCoords());
                 } else {
                     end(res, {});
                 }
