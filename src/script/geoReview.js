@@ -80,7 +80,6 @@ export default class GeoReview {
                     fieldNodes[field].classList.remove('empty__field');
                 }
             }
-
             if (emptyFieldFlag) return;
 
             const data = {
